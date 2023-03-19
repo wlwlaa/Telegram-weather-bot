@@ -8,7 +8,6 @@ bot = telebot.TeleBot(API_TOKEN)
 def weather_ip(city):
     START_URL = 'http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=c308c34844dc547a013d1f330c5a58c7'
 
-    #CITY = input('Введите город: ')
     url = START_URL + '&q=' + city
 
     response = requests.get(url).json()
@@ -19,7 +18,7 @@ def weather_ip(city):
     pressure = round(current_inf['pressure'] // 10 * 7.537)
     humidity = current_inf['humidity']
 
-    ans = ''
+    ans = f'Погода в городе {city} сейчас:\n'
     ans += f"Температура: {temp} С, ощущается как {temp_feels_like} С\n"
     ans += f"Давление: {pressure} мм. рт. ст.\n"
     ans += f"Влажность: {humidity}%\n"
@@ -90,6 +89,11 @@ def help_message(message):
 
 @bot.message_handler(content_types=['text'])
 def get_cityname(message):
-    bot.send_message(message.chat.id, weather_ip(message.text))
+    try:
+        response = weather_ip(message.text)
+    except KeyError:
+        response = 'Населенный пункт не найден'
+        
+    bot.send_message(message.chat.id, response)
         
 bot.infinity_polling()
