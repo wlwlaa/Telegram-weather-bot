@@ -18,25 +18,25 @@ def weather_ip(city):
     pressure = round(current_inf['pressure'] // 10 * 7.537)
     humidity = current_inf['humidity']
 
-    ans = f'Погода в городе {city} сейчас:\n'
-    ans += f"Температура: {temp} С, ощущается как {temp_feels_like} С\n"
+    ans = f'\U0001F9ED Погода в городе {city} сейчас:\n'
+    ans += f"\U0001F321 Температура: {temp} \U00002103, ощущается как {temp_feels_like} \U00002103\n"
     ans += f"Давление: {pressure} мм. рт. ст.\n"
     ans += f"Влажность: {humidity}%\n"
 
     weather_inf = response['list'][0]['weather'][0]['description']
     weather_state = {
-        'clear sky': 'ясно', 
-        'fog': 'туман', 
-        'scattered clouds': 'переменная облачность', 
-        'light rain': 'легкий дождь', 
-        'few clouds': 'облачно', 
-        'moderate rain': 'дождь', 
-        'heavy intensity rain': 'сильный дождь', 
-        'rain and snow': 'дождь со снегом', 
-        'snow': 'снег', 
-        'light snow': 'легкий снег', 
-        'overcast clouds': 'пасмурно', 
-        'broken clouds': 'малооблачно'
+        'clear sky': 'ясно\U00002600', 
+        'fog': 'туман\U0001F32B', 
+        'scattered clouds': 'переменная облачность\U0001F324', 
+        'light rain': 'легкий дождь\U0001F327', 
+        'few clouds': 'облачно\U00002601', 
+        'moderate rain': 'дождь\U0001F327', 
+        'heavy intensity rain': 'сильный дождь\U0001F4A7', 
+        'rain and snow': 'дождь со снегом\U0001F328', 
+        'snow': 'снег\U00002744', 
+        'light snow': 'легкий снег\U0001F328', 
+        'overcast clouds': 'пасмурно\U00002601', 
+        'broken clouds': 'малооблачно\U000026C5'
     }
     
     if weather_inf in weather_state:
@@ -51,31 +51,31 @@ def weather_ip(city):
     temp = round(current_inf['temp'] - 273)
     weather_inf = response['list'][4]['weather'][0]['description']
     time = response['list'][4]['dt_txt']
-    ans += f"Прогноз на {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} С, {weather_state[weather_inf]}\n"
+    ans += f"\U000025BB {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} \U00002103, {weather_state[weather_inf]}\n"
 
     current_inf = response['list'][6]['main']
     temp = round(current_inf['temp'] - 273)
     weather_inf = response['list'][6]['weather'][0]['description']
     time = response['list'][6]['dt_txt']
-    ans += f"Прогноз на {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} С, {weather_state[weather_inf]}\n"
+    ans += f"\U000025BB {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} \U00002103, {weather_state[weather_inf]}\n"
 
     current_inf = response['list'][8]['main']
     temp = round(current_inf['temp'] - 273)
     weather_inf = response['list'][8]['weather'][0]['description']
     time = response['list'][8]['dt_txt']
-    ans += f"Прогноз на {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} С, {weather_state[weather_inf]}\n"
+    ans += f"\U000025BB {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} \U00002103, {weather_state[weather_inf]}\n"
 
     current_inf = response['list'][10]['main']
     temp = round(current_inf['temp'] - 273)
     weather_inf = response['list'][10]['weather'][0]['description']
     time = response['list'][10]['dt_txt']
-    ans += f"Прогноз на {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} С, {weather_state[weather_inf]}\n"
+    ans += f"\U000025BB {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} \U00002103, {weather_state[weather_inf]}\n"
 
     current_inf = response['list'][12]['main']
     temp = round(current_inf['temp'] - 273)
     weather_inf = response['list'][12]['weather'][0]['description']
     time = response['list'][12]['dt_txt']
-    ans += f"Прогноз на {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} С, {weather_state[weather_inf]}\n"
+    ans += f"\U000025BB {time[8:10]}.{time[5:7]} {time[11:16]}: {temp} \U00002103, {weather_state[weather_inf]}\n"
 
     return ans
 
@@ -93,6 +93,7 @@ def get_cityname(message):
         response = weather_ip(message.text)
     except KeyError:
         response = 'Населенный пункт не найден'
+    print(message.from_user.id)
         
     bot.send_message(message.chat.id, response)
         
